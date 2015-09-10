@@ -428,12 +428,24 @@ struct sp_port;
 struct sp_port_config;
 
 /**
+ * The platform-specific type of an event handle.
+ * Note that depending on the operating system, this may be either
+ * an integer type or a pointer type.
+ * @since 0.1.1
+ */
+#ifdef _WIN32
+typedef void *sp_event_handle;
+#else
+typedef int sp_event_handle;
+#endif
+
+/**
  * @struct sp_event_set
  * A set of handles to wait on for events.
  */
 struct sp_event_set {
 	/** Array of OS-specific handles. */
-	void *handles;
+	sp_event_handle *handles;
 	/** Array of bitmasks indicating which events apply for each handle. */
 	enum sp_event *masks;
 	/** Number of handles. */

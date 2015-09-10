@@ -1326,7 +1326,7 @@ SP_API enum sp_return sp_new_event_set(struct sp_event_set **result_ptr)
 }
 
 static enum sp_return add_handle(struct sp_event_set *event_set,
-		event_handle handle, enum sp_event mask)
+		sp_event_handle handle, enum sp_event mask)
 {
 	void *new_handles;
 	enum sp_event *new_masks;
@@ -1334,7 +1334,7 @@ static enum sp_return add_handle(struct sp_event_set *event_set,
 	TRACE("%p, %d, %d", event_set, handle, mask);
 
 	if (!(new_handles = realloc(event_set->handles,
-			sizeof(event_handle) * (event_set->count + 1))))
+			sizeof(sp_event_handle) * (event_set->count + 1))))
 		RETURN_ERROR(SP_ERR_MEM, "Handle array realloc() failed");
 
 	event_set->handles = new_handles;
@@ -1345,7 +1345,7 @@ static enum sp_return add_handle(struct sp_event_set *event_set,
 
 	event_set->masks = new_masks;
 
-	((event_handle *) event_set->handles)[event_set->count] = handle;
+	event_set->handles[event_set->count] = handle;
 	event_set->masks[event_set->count] = mask;
 
 	event_set->count++;

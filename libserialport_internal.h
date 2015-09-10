@@ -141,12 +141,6 @@ struct port_data {
 #endif
 };
 
-#ifdef _WIN32
-typedef HANDLE event_handle;
-#else
-typedef int event_handle;
-#endif
-
 /* Standard baud rates. */
 #ifdef _WIN32
 #define BAUD_TYPE DWORD
